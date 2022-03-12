@@ -1,0 +1,40 @@
+Function sort_array(array, low, high):
+   i_low <- low
+   i_high <- high
+
+   #values_found[Lower section, Higher section]
+   values_found <- [False, False]
+
+   i_wall < floor((i_high + i_low) / 2)
+
+   If Not i_wall > high And Not i_wall < low: 
+   	While i_low != i_wall Or i_high != i_wall:
+            If Not values_found[0] And i_low != i_wall:
+                If array[i_low] > array[i_wall]:
+                    values_found[0] <- True
+                Elseif i_low < len(array):
+                    i_low ++
+
+            If Not values_found[1] And i_high != i_wall:
+                If array[i_high] < array[i_wall]:
+                    values_found[1] <- True
+                Else:
+                    i_high --
+
+            If values_found[0] == True And values_found[1] == True:
+                array[i_low], array[i_high] <- array[i_high], array[i_low]
+                values_found <- [False, False]
+
+            If values_found[0] == True And i_high == i_wall:
+                array[i_low], array[i_wall] <- array[i_wall], array[i_low]
+                values_found <- [False, False]
+
+            If values_found[1] == True And i_low == i_wall:
+                array[i_high], array[i_wall] <- array[i_wall], array[i_high]
+                i_wall ++
+                values_found <- [False, False]
+
+    If low != high:
+        sort_array(array, low, i_wall - 1)
+        sort_array(array, i_wall + 1, high)
+
